@@ -1,0 +1,10 @@
+{
+	"name": "ls_adlssource",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://healthcarepojectadf.dfs.core.windows.net/"
+		}
+	}
+}
