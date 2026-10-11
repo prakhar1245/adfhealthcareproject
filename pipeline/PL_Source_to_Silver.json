@@ -33,7 +33,8 @@
 		],
 		"parameters": {
 			"source_system": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "neon_postgres"
 			}
 		},
 		"annotations": []
