@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "HealthCareDemoADFNew"
+		},
+		"ls_PostgreSql_properties_typeProperties_server": {
+			"value": "ep-shy-lake-b3h8x9ek-pooler.c-4.ap-southeast-1.aws.neon.tech"
+		},
+		"ls_PostgreSql_properties_typeProperties_database": {
+			"value": "neondb"
+		},
+		"ls_PostgreSql_properties_typeProperties_username": {
+			"value": "neondb_owner"
+		},
+		"ls_adlssource_properties_typeProperties_url": {
+			"value": "https://healthcarepojectadf.dfs.core.windows.net/"
+		},
+		"postgres_akv_properties_typeProperties_baseUrl": {
+			"value": "https://postgres-akv.vault.azure.net/"
+		},
+		"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
+			"value": "https://sqlazuredb.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "healthcare-adfdb.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "free-sql-healthcare"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "prakhar"
+		}
+	}
+}
