@@ -112,7 +112,7 @@
 						"referenceName": "DSParquet",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "landing_reports",
+							"container": "landing_labreports",
 							"folder": {
 								"value": "concat(@{activity('Read table details').output.firstRow.source_system},'/',@{activity('Read table details').output.firstRow.output.firstRow.source_table_name},'/'\n,variables('start time')})",
 								"type": "Expression"
