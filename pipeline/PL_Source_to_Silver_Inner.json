@@ -114,12 +114,90 @@
 						"parameters": {
 							"container": "landing-labreports",
 							"folder": {
-								"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
+								"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
 								"type": "Expression"
 							}
 						}
 					}
 				]
+			},
+			{
+				"name": "Landing to Bronze",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "source to landing zone",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthgrp-Repo/health-adfrepo/Landing to bronze",
+					"baseParameters": {
+						"schema_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_system}",
+							"type": "Expression"
+						},
+						"table_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_table_name}",
+							"type": "Expression"
+						},
+						"timestamp": {
+							"value": "@variables('start time')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Bronze to Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Landing to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthgrp-Repo/health-adfrepo/Bronze to Silver",
+					"baseParameters": {
+						"table_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_table_name}",
+							"type": "Expression"
+						},
+						"landing_timestamp": {
+							"value": "@variables('start time')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
