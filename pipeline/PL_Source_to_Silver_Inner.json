@@ -67,7 +67,7 @@
 				],
 				"policy": {
 					"timeout": "0.12:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
@@ -112,9 +112,9 @@
 						"referenceName": "DSParquet",
 						"type": "DatasetReference",
 						"parameters": {
-							"container": "landing_labreports",
+							"container": "landing-labreports",
 							"folder": {
-								"value": "concat(@{activity('Read table details').output.firstRow.source_system},'/',@{activity('Read table details').output.firstRow.output.firstRow.source_table_name},'/'\n,variables('start time')})",
+								"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
 								"type": "Expression"
 							}
 						}
