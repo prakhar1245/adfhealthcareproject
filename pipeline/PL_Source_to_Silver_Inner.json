@@ -114,7 +114,7 @@
 						"parameters": {
 							"container": "landing-labreports",
 							"folder": {
-								"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
+								"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
 								"type": "Expression"
 							}
 						}
