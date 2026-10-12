@@ -7,6 +7,30 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "HealthCareDemoADFNew"
 		},
+		"AzureKeyVaultdatabricks_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://databrickskeyvlthcare.vault.azure.net/"
+		},
+		"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://sqlazuredb.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "healthcare-adfdb.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "free-sql-healthcare"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "prakhar"
+		},
+		"LS_Databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1012-122447-u2fmw6u3"
+		},
 		"ls_PostgreSql_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "ep-shy-lake-b3h8x9ek-pooler.c-4.ap-southeast-1.aws.neon.tech"
@@ -26,22 +50,6 @@
 		"postgres_akv_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://postgres-akv.vault.azure.net/"
-		},
-		"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://sqlazuredb.vault.azure.net/"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "healthcare-adfdb.database.windows.net"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "free-sql-healthcare"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "prakhar"
 		},
 		"containerUri": {
 			"type": "string",
@@ -70,23 +78,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureKeyVaultdatabricks_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVaultdatabricks_properties_typeProperties_baseUrl')]"
+					},
+					"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVaultsql_properties_typeProperties_baseUrl')]"
+					},
 					"ls_adlssource_properties_typeProperties_url": {
 						"value": "[parameters('ls_adlssource_properties_typeProperties_url')]"
 					},
 					"postgres_akv_properties_typeProperties_baseUrl": {
 						"value": "[parameters('postgres_akv_properties_typeProperties_baseUrl')]"
-					},
-					"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
-						"value": "[parameters('AzureKeyVaultsql_properties_typeProperties_baseUrl')]"
-					},
-					"ls_PostgreSql_properties_typeProperties_server": {
-						"value": "[parameters('ls_PostgreSql_properties_typeProperties_server')]"
-					},
-					"ls_PostgreSql_properties_typeProperties_database": {
-						"value": "[parameters('ls_PostgreSql_properties_typeProperties_database')]"
-					},
-					"ls_PostgreSql_properties_typeProperties_username": {
-						"value": "[parameters('ls_PostgreSql_properties_typeProperties_username')]"
 					},
 					"LS_AzureSqlDatabase_properties_typeProperties_server": {
 						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_server')]"
@@ -96,6 +98,18 @@
 					},
 					"LS_AzureSqlDatabase_properties_typeProperties_userName": {
 						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_userName')]"
+					},
+					"LS_Databricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('LS_Databricks_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_server": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_server')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_database": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_database')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_username": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_username')]"
 					}
 				}
 			},

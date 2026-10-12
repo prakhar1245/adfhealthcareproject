@@ -5,6 +5,24 @@
 		"factoryName": {
 			"value": "HealthCareDemoADFNew"
 		},
+		"AzureKeyVaultdatabricks_properties_typeProperties_baseUrl": {
+			"value": "https://databrickskeyvlthcare.vault.azure.net/"
+		},
+		"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
+			"value": "https://sqlazuredb.vault.azure.net/"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "healthcare-adfdb.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "free-sql-healthcare"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "prakhar"
+		},
+		"LS_Databricks_properties_typeProperties_existingClusterId": {
+			"value": "1012-122447-u2fmw6u3"
+		},
 		"ls_PostgreSql_properties_typeProperties_server": {
 			"value": "ep-shy-lake-b3h8x9ek-pooler.c-4.ap-southeast-1.aws.neon.tech"
 		},
@@ -19,18 +37,6 @@
 		},
 		"postgres_akv_properties_typeProperties_baseUrl": {
 			"value": "https://postgres-akv.vault.azure.net/"
-		},
-		"AzureKeyVaultsql_properties_typeProperties_baseUrl": {
-			"value": "https://sqlazuredb.vault.azure.net/"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_server": {
-			"value": "healthcare-adfdb.database.windows.net"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_database": {
-			"value": "free-sql-healthcare"
-		},
-		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
-			"value": "prakhar"
 		},
 		"containerUri": {
 			"value": ""
