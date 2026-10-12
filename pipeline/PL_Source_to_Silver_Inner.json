@@ -122,7 +122,7 @@
 				]
 			},
 			{
-				"name": "source to landing",
+				"name": "Landing to Bronze",
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
@@ -140,6 +140,23 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthgrp-Repo/health-adfrepo/Landing to bronze",
+					"baseParameters": {
+						"schema_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_system}",
+							"type": "Expression"
+						},
+						"table_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_table_name}",
+							"type": "Expression"
+						},
+						"timestamp": {
+							"value": "@variables('start time')",
+							"type": "Expression"
+						}
+					}
+				},
 				"linkedServiceName": {
 					"referenceName": "LS_Databricks",
 					"type": "LinkedServiceReference"
