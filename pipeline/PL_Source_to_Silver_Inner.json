@@ -161,6 +161,43 @@
 					"referenceName": "LS_Databricks",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Bronze to Silver",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Landing to Bronze",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Healthgrp-Repo/health-adfrepo/Bronze to Silver",
+					"baseParameters": {
+						"table_name": {
+							"value": "@{activity('Read table details').output.firstRow.source_table_name}",
+							"type": "Expression"
+						},
+						"landing_timestamp": {
+							"value": "@variables('start time')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_Databricks",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
