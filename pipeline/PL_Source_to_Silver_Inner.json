@@ -242,7 +242,8 @@
 				"defaultValue": 1
 			},
 			"adf_run_id": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "a3"
 			},
 			"row_count": {
 				"type": "string"
