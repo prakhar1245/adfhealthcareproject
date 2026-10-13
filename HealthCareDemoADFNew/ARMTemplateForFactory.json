@@ -445,7 +445,7 @@
 						}
 					},
 					{
-						"name": "update ingestion status failed",
+						"name": "update ingestion status success",
 						"type": "Script",
 						"dependsOn": [
 							{
