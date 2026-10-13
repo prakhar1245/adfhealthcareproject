@@ -7,10 +7,6 @@
 		},
 		"annotations": [],
 		"type": "PostgreSqlV2Table",
-		"schema": [],
-		"typeProperties": {
-			"schema": "public",
-			"table": "hospitals"
-		}
+		"schema": []
 	}
 }

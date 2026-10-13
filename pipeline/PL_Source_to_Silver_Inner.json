@@ -71,7 +71,7 @@
 					"source": {
 						"type": "PostgreSqlV2Source",
 						"query": {
-							"value": "select * from public.@{activity('Read table details').output.firstRow.source_table_name}\n @{if(equals(activity('Read table details').output.firstRow.load_type,'FULL'),'',\nconcat('where ',activity('Read table details').output.firstRow.watermark_column , ' >', '''',variables('load_type'),''''))\n\n}",
+							"value": "select * from public.@{activity('Read table details').output.firstRow.source_table_name}\n @{if(equals(activity('Read table details').output.firstRow.load_type,'FULL'),'',\nconcat('where ',activity('Read table details').output.firstRow.watermark_column , ' > ' , '''',variables('load_type'),''''))\n\n}",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00"
