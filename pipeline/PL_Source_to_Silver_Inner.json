@@ -204,6 +204,10 @@
 			"tableid": {
 				"type": "int",
 				"defaultValue": 1
+			},
+			"adf_run_id": {
+				"type": "string",
+				"defaultValue": "a2"
 			}
 		},
 		"variables": {

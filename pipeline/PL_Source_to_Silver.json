@@ -99,7 +99,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "INSERT INTO ctrl.audit_log\n    (adf_run_id, table_id, stage, status, start_time)\nVALUES\n    (@{pipeline().eline_id} ,@item().table_id, 'SOURCE_TO_SILVER', 'IN_PROGRESS', SYSUTCDATETIME())\n",
+											"value": "INSERT INTO ctrl.audit_log\n    (adf_run_id, table_id, stage, status, start_time)\nVALUES\n    ('@{pipeline().parameters.adf_run_id}',@{item().table_id}, 'SOURCE_TO_SILVER', 'IN_PROGRESS', SYSUTCDATETIME())",
 											"type": "Expression"
 										}
 									}
@@ -108,7 +108,7 @@
 							}
 						},
 						{
-							"name": "ingestion status failed",
+							"name": "update ingestion status failed",
 							"type": "Script",
 							"dependsOn": [
 								{
@@ -133,7 +133,11 @@
 							"typeProperties": {
 								"scripts": [
 									{
-										"type": "Query"
+										"type": "Query",
+										"text": {
+											"value": "update ctrl.audit_log\n\nset status ='Failed',\nend_time=SYSUTCDATETIME()\n\nwhere adf_run_id = @{pipeline().parameters.adf_run_id}\n    ",
+											"type": "Expression"
+										}
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
@@ -147,6 +151,10 @@
 			"source_system": {
 				"type": "string",
 				"defaultValue": "neon_postgres"
+			},
+			"adf_run_id": {
+				"type": "string",
+				"defaultValue": "a2"
 			}
 		},
 		"variables": {
