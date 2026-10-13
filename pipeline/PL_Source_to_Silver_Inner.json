@@ -380,9 +380,6 @@
 		"variables": {
 			"start time": {
 				"type": "String"
-			},
-			"load type": {
-				"type": "String"
 			}
 		},
 		"annotations": []
