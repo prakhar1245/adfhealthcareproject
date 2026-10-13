@@ -50,7 +50,7 @@
 					},
 					"activities": [
 						{
-							"name": "Execute Pipeline Inner",
+							"name": "Ingest from Source to silver",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"policy": {
