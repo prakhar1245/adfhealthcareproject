@@ -53,15 +53,9 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Read table details",
+						"activity": "Check the load type",
 						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "current timestamp",
-						"dependencyConditions": [
-							"Succeeded"
+							"Skipped"
 						]
 					}
 				],
@@ -234,6 +228,85 @@
 					],
 					"scriptBlockExecutionTimeout": "02:00:00"
 				}
+			},
+			{
+				"name": "Check the load type",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "Read table details",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "current timestamp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@NOT(equals(activity('Read table details').output.firstRow.load_type,'FULL'))",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Read water mark value",
+							"type": "Lookup",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 1,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderQuery": {
+										"value": "Select watermark_value from ctrl.watermark where table_id= @{pipeline().parameters.tableid}",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"dataset": {
+									"referenceName": "AzureSqlTable1",
+									"type": "DatasetReference"
+								}
+							}
+						},
+						{
+							"name": "Set value",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Read water mark value",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "load type",
+								"value": {
+									"value": "@activity('Read water mark value').output.firstRow.watermark_value",
+									"type": "Expression"
+								}
+							}
+						}
+					]
+				}
 			}
 		],
 		"parameters": {
@@ -249,6 +322,9 @@
 		"variables": {
 			"start time": {
 				"type": "String"
+			},
+			"load type": {
+				"type": "Integer"
 			}
 		},
 		"annotations": []
