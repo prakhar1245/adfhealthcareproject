@@ -55,7 +55,7 @@
 					{
 						"activity": "Check the load type",
 						"dependencyConditions": [
-							"Skipped"
+							"Succeeded"
 						]
 					}
 				],
