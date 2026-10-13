@@ -290,7 +290,7 @@
 							}
 						},
 						{
-							"name": "Set value",
+							"name": "Set variable1",
 							"type": "SetVariable",
 							"dependsOn": [
 								{
@@ -382,7 +382,7 @@
 				"type": "String"
 			},
 			"load type": {
-				"type": "Integer"
+				"type": "String"
 			}
 		},
 		"annotations": []
