@@ -402,10 +402,21 @@
 											"type": "BinarySource",
 											"storeSettings": {
 												"type": "AzureBlobFSReadSettings",
-												"recursive": true
+												"recursive": false,
+												"modifiedDatetimeStart": {
+													"value": "@variables('load_type')",
+													"type": "Expression"
+												},
+												"deleteFilesAfterCompletion": false
 											},
 											"formatSettings": {
 												"type": "BinaryReadSettings"
+											}
+										},
+										"sink": {
+											"type": "BinarySink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
 											}
 										},
 										"enableStaging": false
@@ -416,9 +427,19 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"folder": {
-													"value": "@{activity('Read table details').output.firstRow.source_path}",
+													"value": "@activity('Read table details').output.firstRow.source_path",
 													"type": "Expression"
-												}
+												},
+												"container": "source-labreports"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_Binary",
+											"type": "DatasetReference",
+											"parameters": {
+												"container": "landing-labreports"
 											}
 										}
 									]
