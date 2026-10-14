@@ -439,6 +439,10 @@
 											"referenceName": "DS_Binary",
 											"type": "DatasetReference",
 											"parameters": {
+												"folder": {
+													"value": "@concat(activity('Read table details').output.firstRow.source_system,\n'/',\nactivity('Read table details').output.firstRow.source_table_name,\n'/'\n,variables('start time')\n)",
+													"type": "Expression"
+												},
 												"container": "landing-labreports"
 											}
 										}
