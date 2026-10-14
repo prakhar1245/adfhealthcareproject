@@ -70,7 +70,7 @@
 				"typeProperties": {
 					"notebookPath": "/Healthgrp-Repo/health-adfrepo/Landing to bronze",
 					"baseParameters": {
-						"schema_name": {
+						"source_system": {
 							"value": "@{activity('Read table details').output.firstRow.source_system}",
 							"type": "Expression"
 						},
@@ -78,7 +78,7 @@
 							"value": "@{activity('Read table details').output.firstRow.source_table_name}",
 							"type": "Expression"
 						},
-						"timestamp": {
+						"landing_timestamp": {
 							"value": "@variables('start time')",
 							"type": "Expression"
 						},
