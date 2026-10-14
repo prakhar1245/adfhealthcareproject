@@ -395,7 +395,7 @@
 							]
 						},
 						{
-							"value": "adds_csv",
+							"value": "adls_csv",
 							"activities": [
 								{
 									"name": "Copy data for csv ingestion",
