@@ -460,8 +460,7 @@
 		],
 		"parameters": {
 			"tableid": {
-				"type": "int",
-				"defaultValue": 1
+				"type": "int"
 			},
 			"adf_run_id": {
 				"type": "string",
