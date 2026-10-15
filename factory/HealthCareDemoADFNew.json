@@ -2,7 +2,7 @@
 	"name": "HealthCareDemoADFNew",
 	"properties": {
 		"globalParameters": {
-			"email global": {
+			"email_global": {
 				"type": "string",
 				"value": "prakhar1245mishra@gmail.com"
 			}
