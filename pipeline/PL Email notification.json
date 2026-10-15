@@ -81,7 +81,7 @@
 				"typeProperties": {
 					"variableName": "email_subject",
 					"value": {
-						"value": "@{pipeline().globalParameters.enviornment} |\n @{if(greater(activity('check all failed count').output.firstrow.rcount,0),'FAILED' ,'SUCCESS' )}  | HealthCare )",
+						"value": "@{pipeline().globalParameters.enviornment} |\n @{if(greater(activity('check all failed count').output.firstRow.rcount,0),'FAILED' ,'SUCCESS' )}  | HealthCare )",
 						"type": "Expression"
 					}
 				}
