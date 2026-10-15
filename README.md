@@ -1,3 +1,60 @@
 # adfhealthcareproject 
 
-want to create readme file
+
+
+
+In this end-to-end project, I  build  Health Network's data platform from the ground up: setting up free Azure, Postgres (Neon), and Blob Storage accounts, building fully metadata-driven ADF pipelines that ingest from multiple source systems, and loading data through the bronze, silver, and gold layers of a medallion architecture in Databricks. Along the way we integrate Key Vault for secrets, build control and audit tables in Azure SQL DB to drive and log every pipeline run, implement both full-load and incremental/merge load logic, connect ADF and Databricks to GitHub for a real CI/CD workflow, send custom pipeline summary emails with Logic Apps, and finish with a Databricks dashboard plus a Genie agent for natural-language querying. Everything used here — data, code, slides, and a detailed PDF — is linked below so you can do the entire hands-on yourself.
+
+
+An end-to-end, metadata-driven data engineering project for a multi-hospital healthcare network. It ingests relational data from an internal hospital system (PostgreSQL) alongside recurring file-based feeds from external partners (CSV), then transforms everything through a Bronze–Silver–Gold medallion architecture on Databricks — all driven by a single reusable Azure Data Factory pipeline configured entirely from a SQL control table, with every run automatically audited and reported by email.
+
+Architecture
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ec761210-f8a8-4a54-9287-1e52e8d71ce8" />
+
+
+
+Healthcare end-to-end architecture
+
+Data flows from the source systems on the left through ingestion, transformation, and out to consumption, with orchestration, governance, and CI/CD wrapped around the pipeline rather than sitting inside it:
+
+Ingestion — Azure Data Factory, driven by metadata rather than one pipeline per table.
+
+Transformation — Databricks (PySpark, Delta Lake), through Bronze, Silver, and Gold layers.
+
+Orchestration — Azure Data Factory pipelines plus a SQL database holding the control/metadata and audit tables.
+
+Governance & Security — Unity Catalog, Azure Key Vault, and Azure Logic Apps for automated email notifications.
+
+CI/CD — GitHub, for both the Azure Data Factory and Databricks repos.
+
+Consumption — Databricks AI/BI Dashboards, Genie Agents, and Genie ONE.
+
+
+Key Features
+
+Metadata-driven ingestion — a single Azure Data Factory pipeline ingests every source, relational or file-based, based on rows in a SQL control table. Onboarding a new source means adding a row, not writing a new pipeline.
+Full and incremental loads — full-reload, append, and watermark-based merge load strategies, all handled by the same generic notebooks.
+Bronze–Silver–Gold medallion architecture — raw, standardized, and curated reporting layers on Delta Lake, with a supporting calendar dimension table.
+Automated auditing & alerting — every stage of every run is logged, and a status email (with a dynamic subject and an HTML results table) goes out automatically via Azure Logic Apps, whether the run succeeds or fails.
+Governed, credential-less storage access — Unity Catalog storage credentials and managed identities throughout; no account keys or passwords in any pipeline definition.
+CI/CD for both platforms — feature-branch and pull-request workflows for Azure Data Factory and Databricks Repos alike.
+Multiple consumption surfaces — a multi-page Databricks dashboard, a scoped Genie Agent, and a workspace-wide Genie ONE natural-language interface, all built on the same gold tables.
+
+
+Repository Structure
+
+
+Folder	                                           Contents
+01_Sources Data                        	Sample source data and setup scripts — Postgres source table DDL/seed                                            data (01_postgres/) plus initial and incremental sample CSV drops for the                                           external partner feeds (02_adls_csv/).
+02_Metadata                              Table Queries/	DDL and seed scripts for the ctrl schema — table_config,                                            watermark, and audit_log, the control tables that drive every pipeline                                            run.
+03_Gold STTM                            	The source-to-target mapping workbook used to design and generate the                                            gold-layer notebooks.
+04_Azure Data Factory Repository        	The full ADF Git-integrated repo — pipelines, datasets, linked                                                      services, and factory/publish config.
+05_Databricks_Repository                  	The Databricks notebooks — Landing-to-Bronze, Bronze-to-Silver, the                                           calendar dimension builder, and the three Gold-layer reporting notebooks.
+
+
+Tech Stack
+
+Azure Data Factory · Azure Data Lake Storage Gen2 · Azure SQL Database · Azure Key Vault · Azure Logic Apps · Databricks · Delta Lake · Unity Catalog · PySpark · PostgreSQL · GitHub
+
+
