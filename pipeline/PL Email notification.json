@@ -8,7 +8,7 @@
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
@@ -92,7 +92,7 @@
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
-					"retry": 0,
+					"retry": 2,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
 					"secureInput": false
@@ -102,7 +102,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT  count(*) FROM [ctrl].[audit_log] where adf_run_id =@{pipeline().parameters.adf_run_id}\nand status !='SUCCESS'",
+							"value": "SELECT  count(*) as rcount FROM [ctrl].[audit_log] where adf_run_id =@{pipeline().parameters.adf_run_id}\nand status !='SUCCESS'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
