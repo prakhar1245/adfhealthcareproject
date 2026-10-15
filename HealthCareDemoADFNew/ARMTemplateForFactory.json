@@ -389,6 +389,23 @@
 										],
 										"scriptBlockExecutionTimeout": "02:00:00"
 									}
+								},
+								{
+									"name": "Fail the pipeline",
+									"type": "Fail",
+									"dependsOn": [
+										{
+											"activity": "SIlver To Gold",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"message": "Inner  gold pipiline failed",
+										"errorCode": "500"
+									}
 								}
 							]
 						}
