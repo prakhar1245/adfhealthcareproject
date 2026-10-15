@@ -1,0 +1,12 @@
+{
+	"name": "HealthCareDemoADFNew",
+	"properties": {
+		"globalParameters": {
+			"email global": {
+				"type": "string",
+				"value": "prakhar1245mishra@gmail.com"
+			}
+		}
+	},
+	"location": "centralindia"
+}
