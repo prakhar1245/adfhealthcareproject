@@ -182,7 +182,7 @@
 						"Content-Type": "application/json"
 					},
 					"url": {
-						"value": "@pipeline().globalParameters.email_global",
+						"value": "@pipeline().globalParameters.logicapssurl",
 						"type": "Expression"
 					},
 					"body": {
