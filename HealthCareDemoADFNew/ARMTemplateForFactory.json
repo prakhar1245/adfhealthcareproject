@@ -568,6 +568,23 @@
 										],
 										"scriptBlockExecutionTimeout": "02:00:00"
 									}
+								},
+								{
+									"name": "Fail the pipeline",
+									"type": "Fail",
+									"dependsOn": [
+										{
+											"activity": "Ingest from Source to silver",
+											"dependencyConditions": [
+												"Failed"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"message": "Inner pipiline failed",
+										"errorCode": "500"
+									}
 								}
 							]
 						}
