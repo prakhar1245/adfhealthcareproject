@@ -144,53 +144,27 @@
 						}
 					},
 					{
-						"name": "Web1",
-						"type": "WebActivity",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
+						"name": "PL to send Mail",
+						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
 								"activity": "Silver To Gold",
 								"dependencyConditions": [
-									"Succeeded"
+									"Completed"
 								]
 							}
 						],
 						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
 							"secureInput": false
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"headers": {}
-						}
-					},
-					{
-						"name": "Web1_copy1",
-						"type": "WebActivity",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
-						"dependsOn": [
-							{
-								"activity": "Silver To Gold",
-								"dependencyConditions": [
-									"Failed"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"headers": {}
+							"pipeline": {
+								"referenceName": "PL Email notification",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
 						}
 					}
 				],
@@ -201,7 +175,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PL_Source_to_Silver')]",
-				"[concat(variables('factoryId'), '/pipelines/PL_Silver_to_Gold')]"
+				"[concat(variables('factoryId'), '/pipelines/PL_Silver_to_Gold')]",
+				"[concat(variables('factoryId'), '/pipelines/PL Email notification')]"
 			]
 		},
 		{
@@ -1538,7 +1513,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 2,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -1548,7 +1523,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "@SELECT  * FROM [ctrl].[audit_log] where adf_run_id =@{pipeline().parameters.adf_run_id}",
+									"value": "SELECT  * FROM [ctrl].[audit_log] where adf_run_id ='@{pipeline().parameters.adf_run_id}'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -1612,7 +1587,7 @@
 						"typeProperties": {
 							"variableName": "email_subject",
 							"value": {
-								"value": "@{pipeline().globalParameters.enviornment} |\n @{if(greater(activity('check all failed count').output.firstrow.rcount,0),'FAILED' ,'SUCCESS' )}  | HealthCare )",
+								"value": "@{pipeline().globalParameters.enviornment} |\n @{if(greater(activity('check all failed count').output.firstRow.rcount,0),'FAILED' ,'SUCCESS' )}  | HealthCare )",
 								"type": "Expression"
 							}
 						}
@@ -1623,7 +1598,7 @@
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
-							"retry": 0,
+							"retry": 2,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
 							"secureInput": false
@@ -1633,7 +1608,7 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT  count(*) FROM [ctrl].[audit_log] where adf_run_id =@{pipeline().parameters.adf_run_id}\nand status !='SUCCESS'",
+									"value": "SELECT  count(*) as rcount FROM [ctrl].[audit_log] where adf_run_id ='@{pipeline().parameters.adf_run_id}'\nand status !='SUCCESS'",
 									"type": "Expression"
 								},
 								"queryTimeout": "02:00:00",
@@ -1644,7 +1619,7 @@
 								"type": "DatasetReference",
 								"parameters": {}
 							},
-							"firstRowOnly": false
+							"firstRowOnly": true
 						}
 					},
 					{
@@ -1684,7 +1659,41 @@
 						"typeProperties": {
 							"variableName": "logic apss body",
 							"value": {
-								"value": "{\n  \n  \"subject\": \"@{variables('email_subject')}\",\n  \"email_receipients\": \"@{pipeline().globalParameters.email_global}\",\n  \"body header\": \"@{variables('body header')} \",\n   \"body footer\": \"@{variables('header')}\",\n  \"status table\":activity('Read all status').output.value\n}",
+								"value": "{\n  \n  \"subject\": \"@{variables('email_subject')}\",\n  \"email_receipients\": \"@{pipeline().globalParameters.email_global}\",\n  \"body header\": \"@{variables('body header')} \",\n   \"body footer\": \"@{variables('header')}\",\n  \"status table\":@{activity('Read all status').output.value}\n}",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Send Notification mail",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Prepare logic apps body",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"url": {
+								"value": "@pipeline().globalParameters.logicapssurl",
+								"type": "Expression"
+							},
+							"body": {
+								"value": "@variables('logic apss body')",
 								"type": "Expression"
 							}
 						}
