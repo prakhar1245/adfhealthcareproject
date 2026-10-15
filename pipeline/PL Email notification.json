@@ -152,7 +152,7 @@
 				"typeProperties": {
 					"variableName": "logic apss body",
 					"value": {
-						"value": "{\n  \n  \"subject\": \"@{variables('email_subject')}\",\n  \"email_receipients\": \"@{pipeline().globalParameters.email_global}\",\n  \"body header\": \"@{variables('body header')} \",\n   \"body footer\": \"@{variables('header')}\",\n  \"status table\":activity('Read all status').output.value\n}",
+						"value": "{\n  \n  \"subject\": \"@{variables('email_subject')}\",\n  \"email_receipients\": \"@{pipeline().globalParameters.email_global}\",\n  \"body header\": \"@{variables('body header')} \",\n   \"body footer\": \"@{variables('header')}\",\n  \"status table\":@{activity('Read all status').output.value}\n}",
 						"type": "Expression"
 					}
 				}
