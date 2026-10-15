@@ -103,7 +103,13 @@
 						"referenceName": "PL Email notification",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"adf_run_id": {
+							"value": "@pipeline().RunId",
+							"type": "Expression"
+						}
+					}
 				}
 			}
 		],
